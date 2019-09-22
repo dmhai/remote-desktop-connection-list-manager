@@ -1,0 +1,9 @@
+C:\Users\brand\source\repos\Remote Desktop Connection List Manager\bin\Debug\Remote Desktop Connection List Manager.exe.config
+C:\Users\brand\source\repos\Remote Desktop Connection List Manager\bin\Debug\Remote Desktop Connection List Manager.exe
+C:\Users\brand\source\repos\Remote Desktop Connection List Manager\bin\Debug\Remote Desktop Connection List Manager.pdb
+C:\Users\brand\source\repos\Remote Desktop Connection List Manager\obj\Debug\Remote_Desktop_Connection_List_Manager.ManagerForm.resources
+C:\Users\brand\source\repos\Remote Desktop Connection List Manager\obj\Debug\Remote_Desktop_Connection_List_Manager.Properties.Resources.resources
+C:\Users\brand\source\repos\Remote Desktop Connection List Manager\obj\Debug\Remote Desktop Connection List Manager.csproj.GenerateResource.cache
+C:\Users\brand\source\repos\Remote Desktop Connection List Manager\obj\Debug\Remote Desktop Connection List Manager.csproj.CoreCompileInputs.cache
+C:\Users\brand\source\repos\Remote Desktop Connection List Manager\obj\Debug\Remote Desktop Connection List Manager.exe
+C:\Users\brand\source\repos\Remote Desktop Connection List Manager\obj\Debug\Remote Desktop Connection List Manager.pdb
