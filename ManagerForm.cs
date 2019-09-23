@@ -2,8 +2,6 @@
 using System.Windows.Forms;
 using Microsoft.Win32;
 using System.Collections.Generic;
-using System.Drawing.Drawing2D;
-using System.Drawing;
 
 namespace Remote_Desktop_Connection_List_Manager
 {
@@ -42,12 +40,11 @@ namespace Remote_Desktop_Connection_List_Manager
         private void UpOnClick(object sender, EventArgs e)
         {
             RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Terminal Server Client\Default", true);
-            ListBox.SelectedIndexCollection selectedIndices = new ListBox.SelectedIndexCollection(computers);
-            selectedIndices = computers.SelectedIndices;
+            ListBox.SelectedIndexCollection selectedIndices = computers.SelectedIndices;
             List<int> select = new List<int>();
             int total = selectedIndices.Count;
 
-            if (selectedIndices[0] > 0)
+            if (total > 0 && selectedIndices[0] > 0)
             {
                 for (int i = selectedIndices.Count - 1; i >= 0; i--)
                 {
@@ -79,11 +76,10 @@ namespace Remote_Desktop_Connection_List_Manager
         private void DownOnClick(object sender, EventArgs e)
         {
             RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Terminal Server Client\Default", true);
-            ListBox.SelectedIndexCollection selectedIndices = new ListBox.SelectedIndexCollection(computers);
-            selectedIndices = computers.SelectedIndices;
+            ListBox.SelectedIndexCollection selectedIndices = computers.SelectedIndices;
             List<int> select = new List<int>();
 
-            if (selectedIndices[selectedIndices.Count - 1] + 1 < computers.Items.Count)
+            if (selectedIndices.Count > 0 && selectedIndices[selectedIndices.Count - 1] + 1 < computers.Items.Count)
             {
                 for (int i = selectedIndices.Count - 1; i >= 0; i--) //
                 {
@@ -124,6 +120,7 @@ namespace Remote_Desktop_Connection_List_Manager
         private void AddOnClick(object sender, EventArgs e)
         {
             RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Terminal Server Client\Default", true);
+
             if (addInput.Text != "" && key != null && computers.Items.Count < 10)
             {
                 key.SetValue("MRU" + key.GetValueNames().Length, addInput.Text);
@@ -141,11 +138,10 @@ namespace Remote_Desktop_Connection_List_Manager
         private void RemoveOnClick(object sender, EventArgs e)
         {
             RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Terminal Server Client\Default", true);
-            if (key != null)
-            {
-                ListBox.SelectedObjectCollection selectedItems = new ListBox.SelectedObjectCollection(computers);
-                selectedItems = computers.SelectedItems;
+            ListBox.SelectedObjectCollection selectedItems = computers.SelectedItems;
 
+            if (selectedItems.Count > 0 && key != null)
+            {
                 for (int i = selectedItems.Count - 1; i >= 0; i--)
                 {
                     computers.Items.Remove(selectedItems[i]);
