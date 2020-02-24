@@ -7,3 +7,13 @@ C:\Users\brand\source\repos\Remote Desktop Connection List Manager\obj\Debug\Rem
 C:\Users\brand\source\repos\Remote Desktop Connection List Manager\obj\Debug\Remote Desktop Connection List Manager.csproj.CoreCompileInputs.cache
 C:\Users\brand\source\repos\Remote Desktop Connection List Manager\obj\Debug\Remote Desktop Connection List Manager.exe
 C:\Users\brand\source\repos\Remote Desktop Connection List Manager\obj\Debug\Remote Desktop Connection List Manager.pdb
+C:\Users\brand\Documents\GitHub\remote-desktop-connection-list-manager\bin\Debug\Remote Desktop Connection List Manager.exe.config
+C:\Users\brand\Documents\GitHub\remote-desktop-connection-list-manager\bin\Debug\Remote Desktop Connection List Manager.exe
+C:\Users\brand\Documents\GitHub\remote-desktop-connection-list-manager\bin\Debug\Remote Desktop Connection List Manager.pdb
+C:\Users\brand\Documents\GitHub\remote-desktop-connection-list-manager\obj\Debug\Remote Desktop Connection List Manager.csprojAssemblyReference.cache
+C:\Users\brand\Documents\GitHub\remote-desktop-connection-list-manager\obj\Debug\Remote_Desktop_Connection_List_Manager.ManagerForm.resources
+C:\Users\brand\Documents\GitHub\remote-desktop-connection-list-manager\obj\Debug\Remote_Desktop_Connection_List_Manager.Properties.Resources.resources
+C:\Users\brand\Documents\GitHub\remote-desktop-connection-list-manager\obj\Debug\Remote Desktop Connection List Manager.csproj.GenerateResource.cache
+C:\Users\brand\Documents\GitHub\remote-desktop-connection-list-manager\obj\Debug\Remote Desktop Connection List Manager.csproj.CoreCompileInputs.cache
+C:\Users\brand\Documents\GitHub\remote-desktop-connection-list-manager\obj\Debug\Remote Desktop Connection List Manager.exe
+C:\Users\brand\Documents\GitHub\remote-desktop-connection-list-manager\obj\Debug\Remote Desktop Connection List Manager.pdb

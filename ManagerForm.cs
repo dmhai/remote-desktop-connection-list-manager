@@ -162,5 +162,15 @@ namespace Remote_Desktop_Connection_List_Manager
                 add.Enabled = true;
             }
         }
+
+        private void titleText2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void titleText1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -113,11 +113,12 @@
             this.titleText2.BackColor = System.Drawing.Color.Transparent;
             this.titleText2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25743F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.titleText2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(51)))), ((int)(((byte)(153)))));
-            this.titleText2.Location = new System.Drawing.Point(125, 33);
+            this.titleText2.Location = new System.Drawing.Point(137, 38);
             this.titleText2.Name = "titleText2";
-            this.titleText2.Size = new System.Drawing.Size(149, 25);
+            this.titleText2.Size = new System.Drawing.Size(137, 25);
             this.titleText2.TabIndex = 10;
             this.titleText2.Text = "List Manager";
+            this.titleText2.Click += new System.EventHandler(this.titleText2_Click);
             // 
             // titleText1
             // 
@@ -126,12 +127,13 @@
             this.titleText1.BackColor = System.Drawing.Color.Transparent;
             this.titleText1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25743F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.titleText1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(51)))), ((int)(((byte)(153)))));
-            this.titleText1.Location = new System.Drawing.Point(60, 6);
+            this.titleText1.Location = new System.Drawing.Point(73, 13);
             this.titleText1.Name = "titleText1";
-            this.titleText1.Size = new System.Drawing.Size(286, 25);
+            this.titleText1.Size = new System.Drawing.Size(261, 25);
             this.titleText1.TabIndex = 9;
             this.titleText1.Text = "Remote Desktop Connection";
             this.titleText1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.titleText1.Click += new System.EventHandler(this.titleText1_Click);
             // 
             // ManagerForm
             // 
