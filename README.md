@@ -2,4 +2,4 @@
 # Remote Desktop Connection List Manager
 A program that allows you to modify the computer list present in Remote Desktop Connection. The program supports Windows only.
 
-You can [download the installer](https://github.com/BrandonXLF/remote-desktop-connection-list-manager/raw/master/RDCLM%20Installer.exe) or [download the EXE file](https://github.com/BrandonXLF/remote-desktop-connection-list-manager/raw/master/Remote%20Desktop%20Connection%20List%20Manager.exe) for protable use.
+You can [download the installer](https://github.com/BrandonXLF/remote-desktop-connection-list-manager/raw/master/RDCLM%20Installer.exe) or [download the EXE file](https://github.com/BrandonXLF/remote-desktop-connection-list-manager/raw/master/Remote%20Desktop%20Connection%20List%20Manager.exe) for portable use.
