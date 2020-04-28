@@ -1,19 +1,42 @@
-!include MUI2.nsh
+!define APP_NAME "Remote Desktop Connection List Manager"
+!define SHORT_NAME "RDCLM"
+!define APP_ICON "favicon.ico"
+!define LICENSE_FILE "LICENCE"
+!define REG_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APP_NAME}"
 
-Name "Remote Desktop Connection List Manager"
+Name "${APP_NAME}"
 BrandingText " "
-OutFile "RDCLM Installer.exe"
+OutFile "${SHORT_NAME} Installer.exe"
 Unicode True
-InstallDir $PROGRAMFILES\RDCLM
 
-!define PRODUCT "Remote Desktop Connection List Manager"
-!define SHORT_PRODUCT_NAME "RDCLM"
+!define PRODUCT "${APP_NAME}"
+!define SHORT_PRODUCT_NAME "${SHORT_NAME}"
+!define MULTIUSER_EXECUTIONLEVEL "Highest"
+!define MULTIUSER_INSTALLMODE_COMMANDLINE
+!define MULTIUSER_MUI
+!define MULTIUSER_INSTALLMODE_DEFAULT_REGISTRY_KEY "${REG_KEY}"
+!define MULTIUSER_INSTALLMODE_DEFAULT_REGISTRY_VALUENAME "UninstallString"
+!define MULTIUSER_INSTALLMODE_INSTDIR_REGISTRY_KEY "${REG_KEY}"
+!define MULTIUSER_INSTALLMODE_INSTDIR_REGISTRY_VALUENAME "InstallLocation"
+!define MULTIUSER_INSTALLMODE_INSTALL_REGISTRY_KEY "${APP_NAME}"
+!define MULTIUSER_INSTALLMODE_UNINSTALL_REGISTRY_KEY "${APP_NAME}" 
+!define MULTIUSER_INSTALLMODE_ALLOW_ELEVATION
+!define MULTIUSER_INSTALLMODE_DEFAULT_ALLUSERS
 !define MUI_COMPONENTSPAGE_SMALLDESC
 !define MUI_FINISHPAGE_NOAUTOCLOSE
+!define MUI_ICON "${APP_ICON}"
+!define MUI_UNICON "${APP_ICON}"
+!define MULTIUSER_INSTALLMODE_INSTDIR "${SHORT_NAME}"
+!define MUI_FINISHPAGE_RUN "$INSTDIR\${APP_NAME}.exe"
+!define MUI_FINISHPAGE_RUN_TEXT "Launch ${APP_NAME}"
 
-!insertmacro MUI_PAGE_LICENSE "LICENCE"
-!insertmacro MUI_PAGE_COMPONENTS
+!include MUI2.nsh
+!include MultiUser.nsh
+
+!insertmacro MUI_PAGE_LICENSE "${LICENSE_FILE}"
+!insertmacro MULTIUSER_PAGE_INSTALLMODE
 !insertmacro MUI_PAGE_DIRECTORY
+!insertmacro MUI_PAGE_COMPONENTS
 !insertmacro MUI_PAGE_INSTFILES
 !insertmacro MUI_PAGE_FINISH
 
@@ -21,41 +44,51 @@ InstallDir $PROGRAMFILES\RDCLM
 !insertmacro MUI_UNPAGE_CONFIRM
 !insertmacro MUI_UNPAGE_INSTFILES
 !insertmacro MUI_UNPAGE_FINISH
-
 !insertmacro MUI_LANGUAGE "English"
 
-Section "Remote Desktop Connection List Manager" S1
+InstallDir "$PROGRAMFILES\${SHORT_NAME}"
+  
+Function .onInit
+	!insertmacro MULTIUSER_INIT
+FunctionEnd
+
+Function un.onInit
+	!insertmacro MULTIUSER_UNINIT
+FunctionEnd
+
+Section "${APP_NAME}" S1
 	SectionIn RO
 	SetOutPath $INSTDIR
-	File "Remote Desktop Connection List Manager.exe"
+	File "${APP_NAME}.exe"
 	WriteUninstaller "$INSTDIR\uninstall.exe"
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\RDCLM" "DisplayName" "Remote Desktop Connection List Manager"
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\RDCLM" "InstallLocation" "$INSTDIR"
-	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\RDCLM" "NoModify" "1"
-	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\RDCLM" "NoRepair" "1"
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\RDCLM" "UninstallString" "$INSTDIR\uninstall.exe"
+	WriteRegStr SHCTX "${REG_KEY}" "DisplayName" "${APP_NAME}"
+	WriteRegStr SHCTX "${REG_KEY}" "InstallLocation" "$INSTDIR"
+	WriteRegDWORD SHCTX "${REG_KEY}" "NoModify" "1"
+	WriteRegDWORD SHCTX "${REG_KEY}" "NoRepair" "1"
+	WriteRegStr SHCTX "${REG_KEY}" "UninstallString" "$INSTDIR\uninstall.exe"
+	WriteRegStr SHCTX "${REG_KEY}" "DisplayIcon" "$INSTDIR\${APP_NAME}.exe"
 SectionEnd
 
 Section "Add To Start Menu" S2
-	CreateDirectory "$SMPROGRAMS\Remote Desktop Connection List Manager"
-	CreateShortcut "$SMPROGRAMS\Remote Desktop Connection List Manager\Remote Desktop Connection List Manager.lnk" "$INSTDIR\Remote Desktop Connection List Manager.exe"
+	CreateDirectory "$SMPROGRAMS\${APP_NAME}"
+	CreateShortcut "$SMPROGRAMS\${APP_NAME}\${APP_NAME}.lnk" "$INSTDIR\${APP_NAME}.exe"
 SectionEnd
 
 Section "Create Desktop Shortcut" S3
-	CreateShortcut "$DESKTOP\Remote Desktop Connection List Manager.lnk" "$INSTDIR\Remote Desktop Connection List Manager.exe"
+	CreateShortcut "$DESKTOP\${APP_NAME}.lnk" "$INSTDIR\${APP_NAME}.exe"
 SectionEnd
 
 Section "Uninstall"
 	Delete "$INSTDIR\uninstall.exe"
-	Delete "$INSTDIR\Remote Desktop Connection List Manager.exe"
-	Delete "$SMPROGRAMS\Remote Desktop Connection List Manager\Remote Desktop Connection List Manager.lnk"
-	Delete "$DESKTOP\Remote Desktop Connection List Manager.lnk"
+	Delete "$INSTDIR\${APP_NAME}.exe"
+	Delete "$SMPROGRAMS\${APP_NAME}\${APP_NAME}.lnk"
+	Delete "$DESKTOP\${APP_NAME}.lnk"
 	RMDir $INSTDIR
-	DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\RDCLM"
+	DeleteRegKey SHCTX "${REG_KEY}"
 SectionEnd
 
 !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
-!insertmacro MUI_DESCRIPTION_TEXT ${S1} "Install Remote Desktop Connection List Manager and its core file(s)"
-!insertmacro MUI_DESCRIPTION_TEXT ${S2} "Add a shortcut to Remote Desktop Connection List Manager to the Start Menu"
-!insertmacro MUI_DESCRIPTION_TEXT ${S3} "Add a shortcut to Remote Desktop Connection List Manager to the Desktop folder"
+!insertmacro MUI_DESCRIPTION_TEXT ${S1} "Install ${APP_NAME} and its core file(s)"
+!insertmacro MUI_DESCRIPTION_TEXT ${S2} "Add a shortcut to ${APP_NAME} to the Start Menu"
+!insertmacro MUI_DESCRIPTION_TEXT ${S3} "Add a shortcut to ${APP_NAME} to the Desktop folder"
 !insertmacro MUI_FUNCTION_DESCRIPTION_END
