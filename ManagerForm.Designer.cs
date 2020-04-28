@@ -118,7 +118,6 @@
             this.titleText2.Size = new System.Drawing.Size(137, 25);
             this.titleText2.TabIndex = 10;
             this.titleText2.Text = "List Manager";
-            this.titleText2.Click += new System.EventHandler(this.titleText2_Click);
             // 
             // titleText1
             // 
@@ -133,7 +132,6 @@
             this.titleText1.TabIndex = 9;
             this.titleText1.Text = "Remote Desktop Connection";
             this.titleText1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.titleText1.Click += new System.EventHandler(this.titleText1_Click);
             // 
             // ManagerForm
             // 
