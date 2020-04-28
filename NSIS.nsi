@@ -26,10 +26,6 @@ InstallDir $PROGRAMFILES\RDCLM
 
 Section "Remote Desktop Connection List Manager" S1
 	SectionIn RO
-	Delete "$INSTDIR\uninstaller.exe"
-	Delete "$INSTDIR\Remote Desktop Connection List Manager.exe"
-	Delete "$SMPROGRAMS\Remote Desktop Connection List Manager"
-	RMDir $INSTDIR
 	SetOutPath $INSTDIR
 	File "Remote Desktop Connection List Manager.exe"
 	WriteUninstaller "$INSTDIR\uninstall.exe"
@@ -50,7 +46,7 @@ Section "Create Desktop Shortcut" S3
 SectionEnd
 
 Section "Uninstall"
-	Delete "$INSTDIR\uninstaller.exe"
+	Delete "$INSTDIR\uninstall.exe"
 	Delete "$INSTDIR\Remote Desktop Connection List Manager.exe"
 	Delete "$SMPROGRAMS\Remote Desktop Connection List Manager\Remote Desktop Connection List Manager.lnk"
 	Delete "$DESKTOP\Remote Desktop Connection List Manager.lnk"
