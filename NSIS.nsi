@@ -1,7 +1,7 @@
 !define APP_NAME "Remote Desktop Connection List Manager"
 !define SHORT_NAME "RDCLM"
 !define APP_ICON "favicon.ico"
-!define LICENSE_FILE "LICENCE"
+!define LICENSE_FILE "LICENSE"
 !define REG_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APP_NAME}"
 
 Name "${APP_NAME}"
