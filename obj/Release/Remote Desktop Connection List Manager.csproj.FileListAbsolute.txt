@@ -7,4 +7,3 @@ C:\Users\brand\Documents\GitHub\remote-desktop-connection-list-manager\obj\Relea
 C:\Users\brand\Documents\GitHub\remote-desktop-connection-list-manager\obj\Release\Remote Desktop Connection List Manager.pdb
 C:\Users\brand\Documents\GitHub\remote-desktop-connection-list-manager\Remote Desktop Connection List Manager.exe
 C:\Users\brand\Documents\GitHub\remote-desktop-connection-list-manager\Remote Desktop Connection List Manager.pdb
-C:\Users\brand\Documents\GitHub\remote-desktop-connection-list-manager\obj\Release\Remote Desktop Connection List Manager.csprojAssemblyReference.cache

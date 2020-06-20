@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
 using Microsoft.Win32;
-using System.Collections.Generic;
 
 namespace Remote_Desktop_Connection_List_Manager
 {
@@ -13,6 +12,9 @@ namespace Remote_Desktop_Connection_List_Manager
             IntialSetup();
         }
 
+        private RegistryKey key;
+        private ListBox.SelectedIndexCollection selectedIndices;
+
         private void ManagerFormLoad(object sender, EventArgs e)
         {
             new ToolTip().SetToolTip(add, "Add");
@@ -23,88 +25,57 @@ namespace Remote_Desktop_Connection_List_Manager
 
         private void IntialSetup()
         {
-            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Terminal Server Client\Default");
-            if (key != null)
+            selectedIndices = computers.SelectedIndices;
+            key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\Microsoft\Terminal Server Client\Default");
+            foreach (var computer in key.GetValueNames())
             {
-                foreach (var computer in key.GetValueNames())
-                {
-                    computers.Items.Add(key.GetValue(computer));
-                }
+                computers.Items.Add(key.GetValue(computer));
             }
-            if (computers.Items.Count > 9)
+            CleanUp();
+        }
+
+        private void CleanUp()
+        {
+            foreach (var computer in key.GetValueNames())
             {
-                add.Enabled = false;
+                key.DeleteValue(computer);
             }
+            for (int i = 0; i < computers.Items.Count; i++)
+            {
+                key.SetValue("MRU" + i, computers.Items[i]);
+            }
+            add.Enabled = computers.Items.Count < 10;
         }
 
         private void UpOnClick(object sender, EventArgs e)
         {
-            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Terminal Server Client\Default", true);
-            ListBox.SelectedIndexCollection selectedIndices = computers.SelectedIndices;
-            List<int> select = new List<int>();
-            int total = selectedIndices.Count;
+            if (selectedIndices.Count > 0 && selectedIndices[0] > 0)
+            {
+                for (int i = 0; i < selectedIndices.Count; i++)
+                {
+                    int place = selectedIndices[i];
+                    string value = (string)computers.Items[place];
+                    computers.Items.RemoveAt(place);
+                    computers.Items.Insert(place - 1, value);
+                    computers.SetSelected(place - 1, true);
+                }
+                CleanUp();
+            }
+        }
 
-            if (total > 0 && selectedIndices[0] > 0)
+        private void DownOnClick(object sender, EventArgs e)
+        {
+            if (selectedIndices.Count > 0 && selectedIndices[selectedIndices.Count - 1] + 1 < computers.Items.Count)
             {
                 for (int i = selectedIndices.Count - 1; i >= 0; i--)
                 {
                     int place = selectedIndices[i];
                     string value = (string)computers.Items[place];
                     computers.Items.RemoveAt(place);
-                    computers.Items.Insert(place - total, value);
-                    select.Add(place - total + i);
-                }
-
-                foreach (var item in select)
-                {
-                    Console.WriteLine(item);
-                    computers.SetSelected(item, true);
-                }
-
-                foreach (var computer in key.GetValueNames())
-                {
-                    key.DeleteValue(computer);
-                }
-
-                for (int i = 0; i < computers.Items.Count; i++)
-                {
-                    key.SetValue("MRU" + i, computers.Items[i]);
-                }
-            }
-        }
-
-        private void DownOnClick(object sender, EventArgs e)
-        {
-            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Terminal Server Client\Default", true);
-            ListBox.SelectedIndexCollection selectedIndices = computers.SelectedIndices;
-            List<int> select = new List<int>();
-
-            if (selectedIndices.Count > 0 && selectedIndices[selectedIndices.Count - 1] + 1 < computers.Items.Count)
-            {
-                for (int i = selectedIndices.Count - 1; i >= 0; i--) //
-                {
-                    int place = selectedIndices[i];
-                    string value = (string)computers.Items[place];
-                    computers.Items.RemoveAt(place);
                     computers.Items.Insert(place + 1, value);
-                    select.Add(place + 1);
+                    computers.SetSelected(place + 1, true);
                 }
-
-                foreach (var item in select)
-                {
-                    Console.WriteLine(item);
-                    computers.SetSelected(item, true);
-                }
-
-                foreach (var computer in key.GetValueNames())
-                {
-                    key.DeleteValue(computer);
-                }
-
-                for (int i = 0; i < computers.Items.Count; i++)
-                {
-                    key.SetValue("MRU" + i, computers.Items[i]);
-                }
+                CleanUp();
             }
         }
 
@@ -119,9 +90,7 @@ namespace Remote_Desktop_Connection_List_Manager
 
         private void AddOnClick(object sender, EventArgs e)
         {
-            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Terminal Server Client\Default", true);
-
-            if (addInput.Text != "" && key != null && computers.Items.Count < 10)
+            if (addInput.Text != "" && computers.Items.Count < 10)
             {
                 key.SetValue("MRU" + key.GetValueNames().Length, addInput.Text);
                 computers.Items.Add(addInput.Text);
@@ -129,37 +98,25 @@ namespace Remote_Desktop_Connection_List_Manager
                 computers.ClearSelected();
                 computers.SetSelected(computers.Items.Count - 1, true);
             }
-            if (computers.Items.Count > 9)
-            {
-                add.Enabled = false;
-            }
+            CleanUp();
         }
 
         private void RemoveOnClick(object sender, EventArgs e)
         {
-            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Terminal Server Client\Default", true);
-            ListBox.SelectedObjectCollection selectedItems = computers.SelectedItems;
-
-            if (selectedItems.Count > 0 && key != null)
-            {
-                for (int i = selectedItems.Count - 1; i >= 0; i--)
+            if (selectedIndices.Count > 0) {
+                for (int i = selectedIndices.Count - 1; i >= 0; i--)
                 {
-                    computers.Items.Remove(selectedItems[i]);
+                    int place = selectedIndices[i];
+                    computers.Items.RemoveAt(place);
+                    if (computers.Items.Count > 0 && place >= computers.Items.Count - 1)
+                    {
+                        computers.SetSelected(computers.Items.Count - 1, true);
+                    } else if (computers.Items.Count > 0)
+                    {
+                        computers.SetSelected(place, true);
+                    }
                 }
-
-                foreach (var computer in key.GetValueNames())
-                {
-                    key.DeleteValue(computer);
-                }
-
-                for (int i = 0; i < computers.Items.Count; i++)
-                {
-                    key.SetValue("MRU" + i, computers.Items[i]);
-                }
-            }
-            if (computers.Items.Count < 10)
-            {
-                add.Enabled = true;
+                CleanUp();
             }
         }
     }
